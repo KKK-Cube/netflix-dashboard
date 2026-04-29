@@ -91,9 +91,21 @@ fig = px.choropleth(map_counts, locations="country", locationmode="country names
 fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
 st.plotly_chart(fig, use_container_width=True)
 
-# Row 4: Rating distribution
-st.subheader("Rating Distribution")
-rating_counts = df["rating"].dropna().value_counts().reset_index()
-rating_counts.columns = ["rating", "count"]
-fig = px.bar(rating_counts, x="rating", y="count")
-st.plotly_chart(fig, use_container_width=True)
+# Row 4: Rating distribution + Top directors
+col1, col2 = st.columns(2)
+
+with col1:
+    st.subheader("Rating Distribution")
+    rating_counts = df["rating"].dropna().value_counts().reset_index()
+    rating_counts.columns = ["rating", "count"]
+    fig = px.bar(rating_counts, x="rating", y="count")
+    st.plotly_chart(fig, use_container_width=True)
+
+with col2:
+    st.subheader("Top 10 Directors")
+    directors = df["director"].dropna().str.split(",").explode().str.strip()
+    director_counts = directors.value_counts().head(10).reset_index()
+    director_counts.columns = ["director", "count"]
+    fig = px.bar(director_counts, x="count", y="director", orientation="h",
+                 category_orders={"director": director_counts["director"].tolist()})
+    st.plotly_chart(fig, use_container_width=True)
