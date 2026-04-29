@@ -16,8 +16,14 @@ df = load_data()
 # Sidebar filter
 st.sidebar.title("Filter")
 content_type = st.sidebar.radio("Content Type", ["All", "Movie", "TV Show"])
+
+min_year = int(df["year_added"].dropna().min())
+max_year = int(df["year_added"].dropna().max())
+year_range = st.sidebar.slider("Year Added", min_year, max_year, (min_year, max_year))
+
 if content_type != "All":
     df = df[df["type"] == content_type]
+df = df[(df["year_added"].isna()) | (df["year_added"].between(year_range[0], year_range[1]))]
 
 # Title
 st.title("Netflix Movies & TV Shows Dashboard")
