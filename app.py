@@ -74,7 +74,18 @@ with col2:
     fig = px.bar(country_counts, x="country", y="count")
     st.plotly_chart(fig, use_container_width=True)
 
-# Row 3: Rating distribution
+# Row 3: World map
+st.subheader("Content by Country (World Map)")
+all_countries = df["country"].dropna().str.split(",").explode().str.strip()
+map_counts = all_countries.value_counts().reset_index()
+map_counts.columns = ["country", "count"]
+fig = px.choropleth(map_counts, locations="country", locationmode="country names",
+                    color="count", color_continuous_scale="Reds",
+                    labels={"count": "Titles"})
+fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+st.plotly_chart(fig, use_container_width=True)
+
+# Row 4: Rating distribution
 st.subheader("Rating Distribution")
 rating_counts = df["rating"].dropna().value_counts().reset_index()
 rating_counts.columns = ["rating", "count"]
