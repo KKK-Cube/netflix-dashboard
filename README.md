@@ -1,5 +1,7 @@
 # Netflix Movies & TV Shows Dashboard
 
+[![Live Demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://kcube-netflix-dashboard.streamlit.app)
+
 An interactive data exploration dashboard built with Python and Streamlit, analyzing Netflix's content library.
 
 ## Features
@@ -27,7 +29,7 @@ An interactive data exploration dashboard built with Python and Streamlit, analy
 
 1. Clone the repo
    ```bash
-   git clone https://github.com/YOUR_USERNAME/netflix-dashboard.git
+   git clone https://github.com/KKK-Cube/netflix-dashboard.git
    cd netflix-dashboard
    ```
 
